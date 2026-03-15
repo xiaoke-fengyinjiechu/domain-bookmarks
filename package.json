@@ -1,0 +1,22 @@
+{
+  "name": "domain-bookmarks",
+  "version": "1.0.0",
+  "description": "一个智能的 Chrome 浏览器收藏夹管理扩展，按域名分组管理您的书签",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'Build completed'",
+    "dev": "echo 'Development mode'"
+  },
+  "keywords": [
+    "chrome",
+    "extension",
+    "browser",
+    "bookmarks",
+    "domain",
+    "收藏夹",
+    "域名"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {}
+}

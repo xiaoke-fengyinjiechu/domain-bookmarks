@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>收藏夹管理</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h1>收藏夹管理</h1>
+    
+    <!-- 标签页导航 -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="bookmarks">所有收藏</button>
+      <button class="tab-btn" data-tab="current">当前域名</button>
+      <button class="tab-btn" data-tab="add">添加收藏</button>
+    </div>
+
+    <!-- 搜索框 -->
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="搜索收藏夹...">
+      <button id="searchButton">搜索</button>
+    </div>
+
+    <!-- 内容区域 -->
+    <div class="tab-content">
+      <!-- 所有收藏标签页 -->
+      <div id="bookmarks" class="tab-pane active">
+        <div class="bookmarks-container">
+          <!-- 左侧域名分组 -->
+          <div class="domain-groups">
+            <h3>域名分组</h3>
+            <div id="domainGroupsList" class="domain-groups-list">
+              <!-- 域名分组将通过 JavaScript 动态生成 -->
+            </div>
+          </div>
+          
+          <!-- 右侧收藏夹列表 -->
+          <div class="bookmarks-list-container">
+            <h3><span id="selectedDomain">所有收藏</span></h3>
+            <div id="bookmarksList" class="bookmarks-list">
+              <!-- 收藏夹内容将通过 JavaScript 动态生成 -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 当前域名标签页 -->
+      <div id="current" class="tab-pane">
+        <div id="currentDomainBookmarks" class="bookmarks-list">
+          <!-- 当前域名的收藏夹将通过 JavaScript 动态生成 -->
+        </div>
+      </div>
+
+      <!-- 添加收藏标签页 -->
+      <div id="add" class="tab-pane">
+        <form id="addBookmarkForm">
+          <div class="form-group">
+            <label for="bookmarkTitle">标题</label>
+            <input type="text" id="bookmarkTitle" placeholder="输入标题">
+          </div>
+          <div class="form-group">
+            <label for="bookmarkUrl">URL</label>
+            <input type="url" id="bookmarkUrl" placeholder="输入 URL">
+          </div>
+          <button type="submit" class="btn">添加收藏</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 加载状态 -->
+    <div id="loading" class="loading">
+      加载中...
+    </div>
+  </div>
+  
+  <!-- 编辑对话框 -->
+  <div id="editDialog" class="dialog">
+    <div class="dialog-content">
+      <h3>编辑收藏</h3>
+      <form id="editForm">
+        <input type="hidden" id="editId">
+        <div class="form-group">
+          <label for="editTitle">标题</label>
+          <input type="text" id="editTitle">
+        </div>
+        <div class="form-group">
+          <label for="editUrl">URL</label>
+          <input type="url" id="editUrl">
+        </div>
+        <div class="dialog-buttons">
+          <button type="button" id="cancelEdit" class="btn btn-secondary">取消</button>
+          <button type="submit" class="btn">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
