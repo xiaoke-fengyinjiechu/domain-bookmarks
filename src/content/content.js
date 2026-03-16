@@ -115,6 +115,11 @@ function initContentScript() {
       badge.style.setProperty('left', `${newLeft}px`, 'important');
       badge.style.setProperty('top', `${newTop}px`, 'important');
       badge.style.setProperty('right', 'auto', 'important');
+      
+      // 如果收藏夹面板正在显示，跟随标记元素移动
+      if (bookmarksPanel.style.display === 'block') {
+        updateBookmarksPanelPosition();
+      }
     }
   });
   
@@ -142,8 +147,6 @@ function initContentScript() {
   bookmarksPanel.id = 'chrome-extension-bookmarks-panel';
   bookmarksPanel.style.cssText = `
     position: fixed;
-    top: 50px;
-    right: 10px;
     width: 300px;
     max-height: 400px;
     background-color: white;
@@ -157,9 +160,23 @@ function initContentScript() {
   document.body.appendChild(bookmarksPanel);
 
   /**
+   * 更新收藏夹面板位置
+   * 基于标记元素当前位置显示
+   */
+  function updateBookmarksPanelPosition() {
+    const badgeRect = badge.getBoundingClientRect();
+    const panelTop = badgeRect.bottom + 5; // 标记元素底部下方5像素
+    const panelRight = window.innerWidth - badgeRect.right; // 与标记元素右对齐
+    
+    bookmarksPanel.style.setProperty('top', `${panelTop}px`, 'important');
+    bookmarksPanel.style.setProperty('right', `${panelRight}px`, 'important');
+  }
+
+  /**
    * 显示收藏夹面板
    */
   function showBookmarksPanel() {
+    updateBookmarksPanelPosition();
     bookmarksPanel.style.display = 'block';
     loadDomainBookmarks();
   }
@@ -213,7 +230,7 @@ function initContentScript() {
 
     if (bookmarks.length === 0) {
       html += `
-        <div style="padding: 20px; text-align: center; color: #666;">
+        <div style="padding: 20px; text-align: center; color: #666;font-size: 13px;">
           暂无收藏
         </div>
       `;
@@ -259,7 +276,7 @@ function initContentScript() {
       <div style="padding: 10px; border-bottom: 1px solid #eee;">
         <h3 style="margin: 0; font-size: 14px; color: #333;">当前域名收藏夹</h3>
       </div>
-      <div style="padding: 20px; text-align: center; color: #666;">
+      <div style="padding: 20px; text-align: center; color: #666;font-size: 13px;">
         加载失败或暂无收藏
       </div>
     `;
